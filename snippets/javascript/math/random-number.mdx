@@ -1,0 +1,16 @@
+export const metadata = {
+    name: "Random Number",
+    description: "Generates a random number within a specified range.",
+    keywords: ["random", "number", "range"],
+    contributors: ["ditinagrawal"],
+};
+
+```javascript
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+```
+
+```javascript
+randomNumber(1, 10);
+```
