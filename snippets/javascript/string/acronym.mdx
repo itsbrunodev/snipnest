@@ -1,0 +1,20 @@
+export const metadata = {
+  name: "Acronym",
+  description: "Creates an acronym from a string by taking the first letter of each word and capitalizing it.",
+  keywords: ["string", "acronym"],
+  contributors: ["itsbrunodev"],
+};
+
+```javascript
+function acronym(str) {
+  return str
+    .split(/\s+/)
+    .map(word => word[0].toUpperCase())
+    .join("")
+    .slice(0, 3);
+}
+```
+
+```javascript
+acronym("john doe"); // "JD"
+```
