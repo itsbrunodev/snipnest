@@ -7,16 +7,16 @@ export const metadata = {
 
 ```python
 def convert(num: int, targetBase: int) -> str:
-    assert targetBase <= 36
+  assert targetBase <= 36
 
-    result = ""
-    while num > 0:
-        num, reminder = divmod(num, targetBase)
-        if reminder > 9:
-            reminder = chr(ord("A") + reminder - 10)
-        result = f"{reminder}{result}"
+  result = ""
+  while num > 0:
+    num, reminder = divmod(num, targetBase)
+    if reminder > 9:
+      reminder = chr(ord("A") + reminder - 10)
+    result = f"{reminder}{result}"
 
-    return result
+  return result
 ```
 
 ```python
