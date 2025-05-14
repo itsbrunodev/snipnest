@@ -153,7 +153,7 @@ export const getGroupedSnippets: () => Promise<GroupedSnippets> = cache(
           acc[language][category] = [];
         }
 
-        if (LANGUAGES.flatMap((x) => x.name.toLowerCase()).includes(language)) {
+        if (LANGUAGES.flatMap((x) => x.value).includes(language)) {
           acc[language][category].push({
             language,
             category,
