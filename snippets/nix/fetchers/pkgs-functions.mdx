@@ -1,0 +1,31 @@
+export const metadata = {
+  name: "List Function Names from Packages",
+  description: "Fetches function names from pkgs, excluding derivations and pkgs.lib.",
+  keywords: ["function", "pkgs", "packages"],
+  contributors: ["witttccchhher"],
+};
+
+```nix
+let
+  pkgs = import <nixpkgs> { };
+
+  tryEval =
+    expr:
+    let
+      result = builtins.tryEval expr;
+    in
+    if result.success then result.value else null;
+
+  safeGet = name: tryEval (builtins.getAttr name pkgs);
+  isFunction = x: builtins.isFunction x;
+  isTopLevelFunction = name: name != "lib" && isFunction (safeGet name);
+  functionNames = builtins.filter isTopLevelFunction (builtins.attrNames pkgs);
+in
+builtins.trace (builtins.concatStringsSep "\n" functionNames) { }
+```
+
+```shell
+$ nix eval -f <filename>.nix
+trace:
+...
+```

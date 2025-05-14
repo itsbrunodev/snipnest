@@ -4,6 +4,7 @@ import RustIcon from "devicons-react/lib/icons/RustOriginal";
 import PythonIcon from "devicons-react/lib/icons/PythonOriginal";
 import GodotIcon from "devicons-react/lib/icons/GodotOriginal";
 import ReactIcon from "devicons-react/lib/icons/ReactOriginal";
+import NixosIcon from "devicons-react/lib/icons/NixosOriginal";
 
 import { RegexIcon } from "lucide-react";
 
@@ -72,6 +73,12 @@ export const LANGUAGES: Language[] = [
     icon: RegexIcon,
     isColored: false,
   },
+  {
+    name: "Nix",
+    value: "nix",
+    icon: NixosIcon,
+    isColored: true,
+  },
 ];
 
 export const LANGUAGE_EXTENSIONS: Map<string, string> = new Map([
@@ -83,4 +90,5 @@ export const LANGUAGE_EXTENSIONS: Map<string, string> = new Map([
   ["rust", "rs"],
   ["gdscript", "gd"],
   ["regex", "txt"], // regex is not a language, but txt is
+  ["nix", "nix"]
 ]);
