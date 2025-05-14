@@ -1,0 +1,24 @@
+export const metadata = {
+  name: "Validate PAN Number",
+  description: "Validate whether a given string is a valid Indian PAN card number.",
+  keywords: ["string", "regex", "pan", "validation", "india"],
+  contributors: ["PankajBaliyan"],
+};
+
+```javascript
+function validatePanNumber(pan) {
+  const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+  const upperPan = pan.toUpperCase(); // Normalize to uppercase
+  if (!panRegex.test(upperPan)) return false;
+  const validFirstChars = ["C", "P", "H", "F", "A", "B", "G", "J", "L", "T"];
+  return validFirstChars.includes(upperPan[0]);
+}
+```
+
+```javascript
+validatePanNumber("ABCDE1234Z"); // true
+validatePanNumber("PQRST1234Z"); // true
+validatePanNumber("XYZZZ1234A"); // false (invalid first char)
+validatePanNumber("ABCD12345Z"); // false (wrong pattern)
+validatePanNumber("abcde1234z"); // true (normalized to uppercase)
+```
