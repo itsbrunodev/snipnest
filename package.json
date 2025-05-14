@@ -1,7 +1,7 @@
 {
   "name": "snipnest",
   "private": true,
-  "version": "2.7.0",
+  "version": "2.8.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -69,6 +69,10 @@
       "@types/react": "19.1.4",
       "@types/react-dom": "19.1.5"
     },
-    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild", "sharp"]
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "esbuild",
+      "sharp"
+    ]
   }
 }
