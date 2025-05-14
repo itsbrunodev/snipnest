@@ -60,6 +60,13 @@ export const LANGUAGES: Language[] = [
     isColored: true,
   },
   {
+    name: "React Native",
+    value: "react-native",
+    alias: "tsx",
+    icon: ReactIcon,
+    isColored: true,
+  },
+  {
     name: "Regex",
     value: "regex",
     icon: RegexIcon,
@@ -70,7 +77,8 @@ export const LANGUAGES: Language[] = [
 export const LANGUAGE_EXTENSIONS: Map<string, string> = new Map([
   ["javascript", "js"],
   ["typescript", "ts"],
-  ["react", "jsx"], // react is not a language, but tsx is
+  ["react", "tsx"], // react is not a language, but tsx is
+  ["react-native", "tsx"],
   ["python", "py"],
   ["rust", "rs"],
   ["gdscript", "gd"],
