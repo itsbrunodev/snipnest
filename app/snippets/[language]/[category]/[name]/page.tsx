@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { getSnippet } from "@/lib/snippets";
-import { formatPath } from "@/lib/utils";
+import { decodeLanguageURI, formatPath } from "@/lib/utils";
 
 import { GitHubIcon } from "@/components/icons/github";
 
@@ -19,7 +19,9 @@ export async function generateMetadata({
 }: SnippetParams): Promise<Metadata> {
   const { language, category, name } = await params;
 
-  const snippet = await getSnippet(language, category, name);
+  const lng = decodeLanguageURI(language);
+
+  const snippet = await getSnippet(lng, category, name);
 
   if (!snippet) {
     notFound();
@@ -27,7 +29,7 @@ export async function generateMetadata({
 
   const title = `${snippet.metadata.name} - SnipNest`;
   const url = `https://snipnest.dev/snippets/${formatPath(
-    language,
+    lng,
     category,
     name
   )}`;
@@ -55,7 +57,9 @@ export async function generateMetadata({
 export default async function SnippetPage({ params }: SnippetParams) {
   const { language, category, name } = await params;
 
-  const snippet = await getSnippet(language, category, name);
+  const lng = decodeLanguageURI(language);
+
+  const snippet = await getSnippet(lng, category, name);
 
   if (!snippet) {
     notFound();
@@ -88,11 +92,15 @@ export default async function SnippetPage({ params }: SnippetParams) {
           ))}
         </p>
       </div>
-      <Snippet params={params} />
+      <Snippet
+        name={name}
+        category={category}
+        language={lng}
+      />
       <Link
         className="text-sm text-foreground hover:underline flex items-center gap-2 group w-fit"
         href={`https://github.com/itsbrunodev/snipnest/edit/main/snippets/${formatPath(
-          language,
+          lng,
           category,
           name
         )}.mdx`}

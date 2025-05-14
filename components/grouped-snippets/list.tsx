@@ -6,7 +6,7 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 
 import type { GroupedSnippets } from "@/lib/snippets";
-import { cn, toTitleCase } from "@/lib/utils";
+import { cn, decodeLanguageURI, toTitleCase } from "@/lib/utils";
 import { LANGUAGES } from "@/lib/languages";
 
 import type { SnippetParams } from "@/app/snippets/[language]/[category]/[name]/page";
@@ -139,13 +139,13 @@ export function GroupedSnippetsList({
 }) {
   const params = useParams<Awaited<SnippetParams["params"]>>();
 
-  const [currentLanguage, setCurrentLanguage] = useState<string>(
-    params.language || LANGUAGES[0].value
-  );
+  const lng = decodeLanguageURI(params.language || LANGUAGES[0].value);
+
+  const [currentLanguage, setCurrentLanguage] = useState<string>(lng);
 
   useEffect(() => {
-    setCurrentLanguage(params.language || LANGUAGES[0].value);
-  }, [params.language]);
+    setCurrentLanguage(lng);
+  }, [lng]);
 
   if (!groupedSnippets[currentLanguage]) {
     notFound();
@@ -175,8 +175,7 @@ export function GroupedSnippetsList({
             <Button
               className="w-full justify-between"
               variant={
-                params.category === category &&
-                params.language === currentLanguage
+                params.category === category && lng === currentLanguage
                   ? "default"
                   : "ghost"
               }
@@ -189,8 +188,7 @@ export function GroupedSnippetsList({
                 <span
                   className={cn(
                     "text-sm font-normal tabular-nums",
-                    params.category !== category ||
-                      params.language !== currentLanguage
+                    params.category !== category || lng !== currentLanguage
                       ? "text-muted-foreground"
                       : ""
                   )}

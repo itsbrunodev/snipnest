@@ -3,19 +3,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getGroupedSnippets } from "@/lib/snippets";
+import { decodeLanguageURI, formatLanguage, toTitleCase } from "@/lib/utils";
 
 import type { SnippetParams } from "./[name]/page";
-import { formatLanguage, toTitleCase } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
 }: SnippetParams): Promise<Metadata> {
   const { language, category } = await params;
 
+  const lng = decodeLanguageURI(language);
+
   const title = `${toTitleCase(category)} - SnipNest`;
   const description = `Snippets in the ${toTitleCase(
     category
-  )} category of ${formatLanguage(language)}.`;
+  )} category of ${formatLanguage(lng)}.`;
 
   return {
     title,
@@ -30,8 +32,10 @@ export async function generateMetadata({
 export default async function SnippetCategoryPage({ params }: SnippetParams) {
   const { language, category } = await params;
 
+  const lng = decodeLanguageURI(language);
+
   const groupedSnippets = await getGroupedSnippets();
-  const snippetsOfCategory = groupedSnippets[language][category];
+  const snippetsOfCategory = groupedSnippets[lng][category];
 
   if (!snippetsOfCategory) {
     notFound();
@@ -42,7 +46,7 @@ export default async function SnippetCategoryPage({ params }: SnippetParams) {
       {snippetsOfCategory.map((snippet) => (
         <Link
           className="w-full bg-card hover:bg-accent/30 dark:hover:bg-accent/50 transition-colors rounded-md border border-border shadow-sm dark:shadow-none"
-          href={`/snippets/${language}/${category}/${snippet.name}`}
+          href={`/snippets/${lng}/${category}/${snippet.name}`}
           key={snippet.metadata.name}
         >
           <div className="p-4 flex flex-col gap-1">

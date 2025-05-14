@@ -5,7 +5,7 @@ import { useParams, usePathname } from "next/navigation";
 import type { SnippetParams } from "@/app/snippets/[language]/[category]/[name]/page";
 
 import { LANGUAGES } from "@/lib/languages";
-import { cn, toTitleCase } from "@/lib/utils";
+import { cn, decodeLanguageURI, toTitleCase } from "@/lib/utils";
 import type { Snippet } from "@/lib/snippets";
 
 import {
@@ -46,12 +46,13 @@ export function GroupedSnippetsContent({
   const params = useParams<Awaited<SnippetParams["params"]>>();
   const pathname = usePathname().split("/").filter(Boolean);
 
-  const languageLink = `/snippets/${params.language}`;
-  const categoryLink = `/snippets/${params.language}/${params.category}`;
+  const lng = decodeLanguageURI(params.language || LANGUAGES[0].value);
 
-  const languageName = LANGUAGES.find(
-    (language) => language.value === params.language
-  )?.name!;
+  const languageLink = `/snippets/${lng}`;
+  const categoryLink = `/snippets/${lng}/${params.category}`;
+
+  const languageName = LANGUAGES.find((language) => language.value === lng)
+    ?.name!;
   const categoryName = toTitleCase(params.category || "");
 
   const snippet = snippetList.find((snippet) => snippet.name === params.name);

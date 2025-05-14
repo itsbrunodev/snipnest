@@ -65,6 +65,10 @@ export function getSnippetList(groupedSnippets: GroupedSnippets): Snippet[] {
     }));
 }
 
+export function decodeLanguageURI(language: string) {
+  return decodeURI(language).replace(/ /g, "-").toLowerCase();
+}
+
 /**
  * Properly formats the language name e.g. ("javascript" -> "JavaScript")
  */
