@@ -1,0 +1,28 @@
+export const metadata = {
+  name: "Get Link Extension",
+  description: "Extracts the file extension from a given URL, if present.",
+  keywords: ["url", "file", "extension", "extract", "path", "link"],
+  contributors: ["PankajBaliyan"],
+};
+
+```javascript
+function getLinkExtension(url) {
+  try {
+    const path = new URL(url).pathname;
+    const lastSegment = path.split("/").pop();
+    return lastSegment.includes(".")
+      ? lastSegment.split(".").pop().toLowerCase()
+      : null;
+  } catch {
+    return null;
+  }
+}
+```
+
+```javascript
+getLinkExtension("https://example.com/file.pdf"); // ✅ "pdf"
+getLinkExtension("https://example.com/archive.tar.gz"); // ✅ "gz" — (Note: only the last extension is returned)
+getLinkExtension("https://example.com/video.mp4?download=true"); // ✅ "mp4"
+getLinkExtension("https://example.com/folder/"); // ❌ null (no file in the URL)
+getLinkExtension("invalid-url"); // ❌ null (invalid URL)
+```
