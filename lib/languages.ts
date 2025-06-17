@@ -90,5 +90,5 @@ export const LANGUAGE_EXTENSIONS: Map<string, string> = new Map([
   ["rust", "rs"],
   ["gdscript", "gd"],
   ["regex", "txt"], // regex is not a language, but txt is
-  ["nix", "nix"]
+  ["nix", "nix"],
 ]);
